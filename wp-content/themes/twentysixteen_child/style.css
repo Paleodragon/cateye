@@ -1,0 +1,10 @@
+/*
+Theme Name:    Twentysixteen Child
+Theme URI:     http://www.cateyecoding.com
+Description:   Child theme for Twentysixteen for tutorial illustration
+Author:        Rebecca Foster
+Version:       1.0.0
+*/
+
+/*import parent styles*/
+@import url("../twentysixteen/style.css");
