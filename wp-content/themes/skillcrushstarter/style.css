@@ -93,8 +93,8 @@ html[xmlns] .clearfix {
 
 /** theme styles start here! **/
 /* FONTS */
-font-family: 'Montserrat', sans-serif;
-font-family: 'Open Sans', sans-serif;
+/*font-family: 'Montserrat', sans-serif;
+font-family: 'Open Sans', sans-serif;*/
 /* MAIN STYLES */
 header, footer, section, aside, time, article {
 	display: block;
@@ -194,8 +194,8 @@ body {
 	max-width: 175px;
 	margin: auto;
 	display: block;
-  border-radius: 50%;
-	border: 3px solid #45ac9d;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px #45ac9d;
 }
 #sidebar .widget_text a {
 	color: #3b3b3b;
@@ -246,7 +246,19 @@ body {
 #sidebar .widget_archive ul li a {
 	color: #3b3b3b;
 }
-
+#sidebar .widget_calendar caption,
+#sidebar .widget_calendar a {
+    font: 600 14px 'Open Sans';
+    color: #45ac9d;
+}
+#sidebar .widget_recent_entries h2 {
+    font: 600 14px 'Open Sans';
+	color: #45ac9d;
+}
+#sidebar .widget_recent_entries ul li a{
+    font: 600 14px 'Open Sans';
+    color: #3b3b3b;
+}
 
 /* BLOG styles */
 .post-entry {
@@ -359,6 +371,13 @@ body {
 }
 .main-content .post-entry:last-child {
 	border-bottom: 0;
+}
+#navigation.container {
+    margin-right: 50%;
+    font: bold 1.17em/2.77 'Montserrat', 'OpenSans', Arial, sans-serif;
+    background: #fcf8f2;
+	padding: 0 20px;
+	text-decoration: none;
 }
 
 /* end BLOG styles */
@@ -506,7 +525,7 @@ body {
 }
 /* Homepage */
 .home {
-	background: url(img/cat-blue-eyes.png) no-repeat center center fixed;
+	background: url(img/cat-blue-eyes.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -574,15 +593,18 @@ body {
 }
 /* Styles for 404 page */
 div.yikes h2 {
-  text-align: center;
-	text-shadow: 1px 1px 1px #45ac9d;
-  font-size: 3.5em;
+    text-align: center;
+    text-shadow: 1px 1px 1px #45ac9d;
+    font-size: 3.5em;
 	margin-top: 2%;
 	margin-bottom: 2%;
 }
 div.surprised img {
-	margin-left: 10%;
-  max-width: 75%;
+	margin-left: 25%;
+    max-width: 50%;
+}
+div.dont-panic {
+    text-align: center;
 }
 /* Portfolio Styles*/
 div.about-me-info h2 {
@@ -615,6 +637,10 @@ figure img {
 	margin-right: 15%;
 	margin-bottom: 2%;
 }
+.description p a {
+	color: #45ac9d;
+	text-decoration: none;
+}
 .site-left {
 	margin-left: 6%;
 	width: 45%;
@@ -636,14 +662,14 @@ figure img {
 }
 aside.about-contact-us h2 {
 	font-size: 20px;
-	margin-left: 5%;
+	margin-left: 15%;
 	margin-top: 3%;
 	float: left;
 }
 div.btn-contact-us button {
 float: right;
 margin-top: 2%;
-margin-right: 5%;
+margin-right: 15%;
 margin-bottom: 5%;
 background: #45ac9d;
 color: #fff;
@@ -655,6 +681,9 @@ width: 25%;
 padding: 0 20px;
 text-align: center;
 text-decoration: none;
+}
+div.btn-contact-us button a {
+  color: #fff;
 }
 /* Contact page styles */
 span.nf-form-title h3 {
@@ -696,6 +725,13 @@ input#nf-field-8.ninja-forms-field.nf-element {
 	padding: 0 20px;
 	text-align: center;
 	text-decoration: none;
+}
+/* footer */
+.copyright {
+    margin-top: 10%;
+    margin-bottom:  5%;
+    font-family: 'Montserrat', 'OpenSans', Arial, sans-serif;
+    font-size: small;
 }
 /* responsive styling */
 @media only screen and (max-width: 480px) {

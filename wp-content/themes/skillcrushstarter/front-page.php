@@ -16,10 +16,9 @@ get_header(); ?>
 				<h1><?php the_title(); ?></h1>
 				<?php the_content(); ?>
             <div class="social-btns">
-					<a href="#" class="soc-icon tw"></a>
+					<a href="https://twitter.com/CatEyeCoding" class="soc-icon tw"></a>
 					<a href="https://www.facebook.com/rebecca.w.foster.9" class="soc-icon fb"></a>
 					<a href="https://www.linkedin.com/in/rebecca-foster-85741169" class="soc-icon ln"></a>
-					<a href="#" class="soc-icon db"></a>
             </div>
 				<a href="<?php echo site_url('/blog/'); ?>" class="btn">View My Blog</a>
 			<?php endwhile; ?>

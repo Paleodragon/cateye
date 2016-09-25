@@ -20,7 +20,7 @@ get_header(); ?>
 
           <div class="dont-panic">
               <h3>No worries. Everything's under control.</h3>
-              <p>Quietly press your back button
+              <p>Press your back button
                 or click a link from the navigation bar at the top to get back to where you <strong>really</strong> want to be.<p>
           </div>
       </div>

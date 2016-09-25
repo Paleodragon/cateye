@@ -99,8 +99,9 @@ get_header(); ?>
       <h2>See something that catches your interest?</h2>
     </aside>
     <div class="btn-contact-us">
-      <button>Contact Me</button>
+      <button><a href="<?php echo site_url('/contact/'); ?>">Contact Me</a></button>
+
     </div>
   </div>
-	</div><!-- #primary -->
+
 <?php get_footer(); ?>
