@@ -738,11 +738,11 @@ input#nf-field-8.ninja-forms-field.nf-element {
 body.border-top {
 		width: 100%;
 	}
-	span.title, span.sub-title {
+span.title, span.sub-title {
 		text-align: center;
 	}
 .home {
-	width: 420px;
+	width: 420px; 
 }
 section.home-page {
 	margin-right: 20%;
@@ -788,11 +788,11 @@ body.page.page-id-47367 div.main-content {
 }
 }
 @media only screen and (min-width: 482px) and (max-width: 767px) {
-	.home-page.main-content {
+.home-page.main-content {
 		width: 100%;
 		max-width: 700px;
 	}
-	section.home-page {
+section.home-page {
 		margin-left:-15%;
 		margin-right: -15%;
 	}
@@ -802,7 +802,7 @@ body.border-top{
 		width: 100%;
 		max-width: 1000px;
 	}
-	.page-header {
+.page-header {
 		width: 100%;
 	}
 .home {
