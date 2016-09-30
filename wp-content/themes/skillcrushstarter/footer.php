@@ -14,10 +14,11 @@
 		</div><!-- #main -->
 <footer>
     <div class="copyright">
-    <p>&copy; CatEye Coding 2016</p>
+        <p>&copy; CatEye Coding 2016</p>
     </div>
 </footer>
 	</div><!-- #page -->
+
 
 	<?php wp_footer(); ?>
 

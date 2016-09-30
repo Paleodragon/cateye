@@ -92,8 +92,7 @@ get_header(); ?>
 <?php endwhile; // end of the loop. ?>
   </div>
   </div><!-- #content -->
-</div><!-- #primary -->
-  <div class="contact-section">
+    <div class="contact-section">
     <hr>
     <aside class="about-contact-us">
       <h2>See something that catches your interest?</h2>
@@ -103,5 +102,6 @@ get_header(); ?>
 
     </div>
   </div>
+</div><!-- #primary -->
 
 <?php get_footer(); ?>

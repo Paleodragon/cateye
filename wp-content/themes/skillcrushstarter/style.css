@@ -438,8 +438,8 @@ body {
 /* End category pages */
 
 /* single posts */
-.single .post-entry {
-	border-bottom: none;
+.post-entry {
+	padding-bottom: 6%;
 }
 .comments-area {
 	margin-bottom: 80px;
@@ -727,29 +727,33 @@ input#nf-field-8.ninja-forms-field.nf-element {
 	text-decoration: none;
 }
 /* footer */
-.copyright {
-    margin-top: 10%;
-    margin-bottom:  5%;
+footer {
+    margin: 0;
     font-family: 'Montserrat', 'OpenSans', Arial, sans-serif;
     font-size: small;
+    float: left;
+    clear: both;
 }
 /* responsive styling */
 @media only screen and (max-width: 480px) {
 body.border-top {
 		width: 100%;
 	}
+body.home.page.page-id-6 {
+    background: url(img/cat-blue-eyes-smaller-4.jpg) no-repeat center center fixed;
+}
 span.title, span.sub-title {
 		text-align: center;
 	}
 .home {
 	width: 420px; 
 }
-section.home-page {
+section.home-page.content {
 	margin-right: 20%;
 }
 .home-page .content {
 	width: 100%;
-	margin-right: 15%;
+	margin-right: 5%;
 	padding-left: 20%
 }
 .home-page .content h1 {
@@ -788,13 +792,16 @@ body.page.page-id-47367 div.main-content {
 }
 }
 @media only screen and (min-width: 482px) and (max-width: 767px) {
+body.home.page.page-id-6 {
+    background: url(img/cat-blue-eyes-smaller-4.jpg) no-repeat center center fixed;
+}
 .home-page.main-content {
 		width: 100%;
 		max-width: 700px;
 	}
 section.home-page {
 		margin-left:-15%;
-		margin-right: -15%;
+		margin-right: 5%;
 	}
 }
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
@@ -802,6 +809,9 @@ body.border-top{
 		width: 100%;
 		max-width: 1000px;
 	}
+body.home.page.page-id-6 {
+    background: url(img/cat-blue-eyes-smaller-3.jpg) no-repeat center center fixed;
+}
 .page-header {
 		width: 100%;
 	}
@@ -809,13 +819,13 @@ body.border-top{
 	max-width: 1000px;
 }
 section.home-page {
-	margin-right: 25%;
+	margin-right: 20%;
 }
 .home-page .content {
 	width: 100%;
 	padding-left: 22%;
 }
 .home-page .main-content {
-	margin-left: 45%;
+	margin-left: 50%;
 }
 }
