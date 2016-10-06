@@ -743,14 +743,16 @@ body.border-top {
 		width: 100%;
 	}
 body.home.page.page-id-6 {
-    background: url(img/cat-blue-eyes-smaller-4.jpg) no-repeat center center fixed;
+    background: #d6d4d6/*url(img/cat-blue-eyes-smaller-4.jpg) no-repeat center center fixed*/;
     width:  100%;
 }
 span.title, span.sub-title {
 		text-align: center;
 	}
 .home {
-	width: 425px; 
+	width: 425px;
+    margin-left: -15%;
+    margin-right: 15%;
 }
 section.home-page.content {
 	margin-right: 20%;
