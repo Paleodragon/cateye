@@ -739,9 +739,9 @@ footer {
 }
 /* responsive styling */
 @media only screen and (max-width: 480px) {
-body.border-top {
-		width: 100%;
-	}
+body {
+    border-top-color: #d6d4d6;
+}
 body.home.page.page-id-6 {
     background: #d6d4d6/*url(img/cat-blue-eyes-smaller-4.jpg) no-repeat center center fixed*/;
     width:  100%;
@@ -752,18 +752,19 @@ span.title, span.sub-title {
 .home {
 	width: 425px;
     margin-left: -15%;
-    margin-right: 15%;
 }
 section.home-page.content {
 	margin-right: 20%;
 }
+
 .home-page .content {
 	width: 100%;
 	margin-right: 2%;
-	padding-left: 10%
+	padding-left: 10%;
 }
 .home-page .content h1 {
 	text-align: center;
+    border-bottom-color: #45ac9d;
 }
 .home.content {
     padding:  10%;
@@ -814,10 +815,7 @@ section.home-page {
 	}
 }
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-body.border-top{
-		width: 100%;
-		max-width: 1023px;
-	}
+
 body.home.page.page-id-6 {
     background: url(img/cat-blue-eyes-smaller-3.jpg) no-repeat center center fixed;
     width: 100%;
