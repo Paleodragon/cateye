@@ -742,40 +742,46 @@ footer {
 body {
     border-top-color: #d6d4d6;
 }
+.main-content div#image {
+    display: inline-block;
+    background-image: url(img/cat-blue-eyes-mobile.jpg);
+    height:  222px;
+    width: 425px;
+}
 body.home.page.page-id-6 {
-    background: #d6d4d6/*url(img/cat-blue-eyes-smaller-4.jpg) no-repeat center center fixed*/;
+    background: #d6d4d6;
     width:  100%;
 }
 span.title, span.sub-title {
 		text-align: center;
 	}
+header.page-header.container {
+    margin-left:  -5%;
+}
 .home {
 	width: 425px;
     margin-left: -15%;
 }
-section.home-page.content {
-	margin-right: 20%;
-}
-
 .home-page .content {
 	width: 100%;
-	margin-right: 2%;
+	margin-right: -3%;
 	padding-left: 10%;
 }
 .home-page .content h1 {
+    margin-top: 5%;
 	text-align: center;
-    border-bottom-color: #45ac9d;
 }
-.home.content {
-    padding:  10%;
+div.contact-section div.btn-contact-us {
+    margin-left: 25%;
+    margin-right: -15%;
 }
 #sidebar {
 	float: none;
 	width: 100%;
 }
 header.page-header.container {
-	margin-left: -8%;
-	margin-right: -8%;
+	
+	margin-right: -10%;
 }
 .main-content {
 	width: 100%;
@@ -801,7 +807,7 @@ body.page.page-id-47367 div.main-content {
 	margin-left: 0;
 }
 }
-@media only screen and (min-width: 482px) and (max-width: 767px) {
+@media only screen and (min-width: 481px) and (max-width: 767px) {
 body.home.page.page-id-6 {
     background: url(img/cat-blue-eyes-smaller-4.jpg) no-repeat center center fixed;
 }
@@ -835,5 +841,9 @@ section.home-page {
 }
 .home-page .main-content {
 	margin-left: 50%;
+}
+div.contact-section div.btn-contact-us {
+    margin-left: 25%;
+    margin-right: 25%;
 }
 }

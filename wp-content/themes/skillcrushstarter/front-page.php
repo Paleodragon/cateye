@@ -11,6 +11,7 @@ get_header(); ?>
 
 <section class="home-page">
 	<div class="main-content">
+        <div id="image" style="width: 400px">.</div>
 		<div class="content">
 			<?php while ( have_posts() ): the_post(); ?>
 				<h1><?php the_title(); ?></h1>
