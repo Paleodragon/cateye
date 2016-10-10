@@ -757,8 +757,12 @@ body.home.page.page-id-6 {
 span.title, span.sub-title {
 		text-align: center;
 	}
+.page-header .top-nav  ul li {
+	display: inline-block;
+    margin-left:  -2%;
+}
 header.page-header.container {
-    margin-left:  -5%;
+    margin-left:  -8%;
 }
 .home {
 	width: 425px;
@@ -812,6 +816,12 @@ body.page.page-id-47367 div.main-content {
 @media only screen and (min-width: 481px) and (max-width: 768px) {
     html {
     background: #d6d4d6;
+}
+span.title, span.sub-title {
+		text-align: center;
+	}
+.page-header .top-nav  ul li {
+	display: inline-block;
 }
 body.home.page.page-id-6 {
     background: url(img/cat-blue-eyes-long-2.jpg) no-repeat center center fixed;
