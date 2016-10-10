@@ -742,14 +742,17 @@ footer {
 body {
     border-top-color: #d6d4d6;
 }
+section.home-page div.main-content {
+    width: 100%;
+    margin: 0 auto;
+}
 .main-content div#image {
     display: inline-block;
     background-image: url(img/cat-blue-eyes-mobile.jpg);
-    height:  222px;
+    height:  291px;
 }
 body.home.page.page-id-6 {
     background: #d6d4d6;
-    width:  100%;
 }
 span.title, span.sub-title {
 		text-align: center;
@@ -759,12 +762,12 @@ header.page-header.container {
 }
 .home {
 	width: 425px;
-    margin-left: -15%;
+    margin-left: 0;
 }
 .home-page .content {
 	width: 100%;
-	margin-right: -3%;
-	padding-left: 10%;
+	padding-left: 5%;
+    float: none;
 }
 .home-page .content h1 {
     margin-top: 5%;
@@ -779,12 +782,12 @@ div.contact-section div.btn-contact-us {
 	width: 100%;
 }
 header.page-header.container {
-	
 	margin-right: -10%;
 }
 .main-content {
 	width: 100%;
 	max-width: 420px;
+    padding-right: 0;
 }
 .site-left {
 	margin-left: 0;
@@ -807,26 +810,35 @@ body.page.page-id-47367 div.main-content {
 }
 }
 @media only screen and (min-width: 481px) and (max-width: 768px) {
+    html {
+    background: #d6d4d6;
+}
 body.home.page.page-id-6 {
     background: url(img/cat-blue-eyes-long-2.jpg) no-repeat center center fixed;
-    height:  100%;
+    width: 100%;
+    max-width:750px;
+    height:  auto;
     
 }
 .home-page.main-content {
-		width: 100%;
-		max-width: 700px;
+	width: 100%;
+	max-width: 760px;
 	}
 .home-page .content {
 	width: 65%;
-	margin-right: -3%;
-    margin-top: -10%;
+	margin-right: -5%;
+    margin-top: 0;
 	padding-left: 5%;
 }
 section.home-page {
-		margin-left:-15%;
-		margin-right: 5%;
-        margin-top: -3%;
+	margin-left:0;
+	margin-right: -15%;
+    margin-top: -3%;
 	}
+section.home-page div.main-content {
+    width: 100%;
+    margin: 0 auto;
+}
 .home-page .content h1 {
     margin-top: 5%;
 	text-align: center;
@@ -835,7 +847,7 @@ section.home-page {
 @media only screen and (min-width: 769px) and (max-width: 1023px) {
 
 body.home.page.page-id-6 {
-    background: url(img/cat-blue-eyes-long-3.jpg) no-repeat center center fixed;
+    background: url(img/cat-blue-eyes-test2.jpg) no-repeat center center fixed;
     width: 100%;
     max-width: 1023px;
 }
@@ -850,9 +862,9 @@ body.home.page.page-id-6 {
 	padding-left: 22%;
 }
 .home .content {
-    margin-right: 1%;
+    margin-right: 5%;
     margin-top: -8%;
-    width: 65%;
+    width: 70%;
     background: #fcf8f2;
     float: right;
     padding: 5%;
