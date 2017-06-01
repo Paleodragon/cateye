@@ -19,13 +19,10 @@ abstract class NF_Abstracts_MergeTags
 
         add_filter( 'ninja_forms_render_default_value', array( $this, 'replace' ) );
 
+        add_filter( 'ninja_forms_run_action_settings',  array( $this, 'replace' ) );
+        add_filter( 'ninja_forms_run_action_settings_preview',  array( $this, 'replace' ) );
+
         add_filter( 'ninja_forms_calc_setting',  array( $this, 'replace' ) );
-
-        add_filter( 'ninja_forms_run_action_settings',  array( $this, 'replace' ) );
-        add_filter( 'ninja_forms_run_action_settings_preview',  array( $this, 'replace' ) );
-
-        add_filter( 'ninja_forms_run_action_settings',  array( $this, 'replace' ) );
-        add_filter( 'ninja_forms_run_action_settings_preview',  array( $this, 'replace' ) );
 
         /* Manually trigger Merge Tag replacement */
         add_filter( 'ninja_forms_merge_tags', array( $this, 'replace' ) );
@@ -46,6 +43,8 @@ abstract class NF_Abstracts_MergeTags
 
         foreach( $this->merge_tags as $merge_tag ){
             if( ! in_array( $merge_tag[ 'tag' ], $matches[0] ) ) continue;
+
+            if( ! isset($merge_tag[ 'callback' ])) continue;
 
             $replace = ( is_callable( array( $this, $merge_tag[ 'callback' ] ) ) ) ? $this->{$merge_tag[ 'callback' ]}() : '';
 

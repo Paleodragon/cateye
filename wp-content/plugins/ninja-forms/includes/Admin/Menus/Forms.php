@@ -2,7 +2,7 @@
 
 final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
 {
-    public $page_title = 'Forms';
+    public $page_title = 'Ninja Forms';
 
     public $menu_slug = 'ninja-forms';
 
@@ -15,25 +15,53 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
         parent::__construct();
 
         if( ! defined( 'DOING_AJAX' ) ) {
-            add_action('admin_init', array($this, 'admin_init'));
-            add_action( 'admin_init', array( 'NF_Admin_AllFormsTable', 'process_bulk_action' ) );
+            add_action('current_screen', array($this, 'admin_init'));
+            add_action( 'current_screen', array( 'NF_Admin_AllFormsTable', 'process_bulk_action' ) );
         }
+
+        add_action( 'admin_body_class', array( $this, 'body_class' ) );
+    }
+
+    public function body_class( $classes )
+    {
+        // Add class for the builder.
+        if( isset( $_GET['page'] ) && isset( $_GET[ 'form_id' ] ) && $_GET['page'] == $this->menu_slug ) {
+            $classes = "$classes ninja-forms-app";
+        }
+
+        return $classes;
     }
 
     public function get_page_title()
     {
-        return __( 'Forms', 'ninja-forms' );
+        return __( 'Ninja Forms', 'ninja-forms' );
     }
 
     public function admin_init()
     {
+        /*
+         * If we aren't on the Ninja Forms menu page, don't admin_init.
+         */
+        if ( empty( $_GET[ 'page' ] ) || 'ninja-forms' !== $_GET[ 'page' ] ) {
+            return false;
+        }
+
+        /*
+         * Database Table Check
+         * If the nf3_ database tables do not exist, then re-run activation.
+         */
+        if ( ! ninja_forms_three_table_exists() ) {
+            Ninja_Forms()->activation();
+        }
+
         if( isset( $_GET[ 'form_id' ] ) && ! is_numeric( $_GET[ 'form_id' ] ) && 'new' != $_GET[ 'form_id' ] ) {
             if( current_user_can( apply_filters( 'ninja_forms_admin_import_template_capabilities', 'manage_options' ) ) ) {
                 $this->import_from_template();
             }
         }
 
-        $this->table = new NF_Admin_AllFormsTable();
+        /* DISABLE OLD FORMS TABLE IN FAVOR OF NEW DASHBOARD */
+//        $this->table = new NF_Admin_AllFormsTable();
     }
 
     public function display()
@@ -72,15 +100,39 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
 
             /*
              * ALL FORMS TABLE
+             * - DISABLE IN FAVOR OF NEW DASHBOARD.
              */
 
-            $this->table->prepare_items();
+//            $this->table->prepare_items();
+//
+//            Ninja_Forms::template( 'admin-menu-all-forms.html.php', array(
+//                'table' => $this->table,
+//                'add_new_url' => admin_url( 'admin.php?page=ninja-forms&form_id=new' ),
+//                'add_new_text' => __( 'Add New Form', 'ninja-forms' )
+//            ) );
 
-            Ninja_Forms::template( 'admin-menu-all-forms.html.php', array(
-                'table' => $this->table,
-                'add_new_url' => admin_url( 'admin.php?page=ninja-forms&form_id=new' ),
-                'add_new_text' => __( 'Add New Form', 'ninja-forms' )
-            ) );
+            /*
+             * DASHBOARD
+             */
+            $dash_items = Ninja_Forms()->config('DashboardMenuItems');
+            ?>
+            <script>
+                var nfDashItems = <?php echo( json_encode( array_values( $dash_items ) ) ); ?>;
+            </script>
+            <?php
+
+            wp_enqueue_script( 'backbone-radio', Ninja_Forms::$url . 'assets/js/lib/backbone.radio.min.js', array( 'jquery', 'backbone' ) );
+            wp_enqueue_script( 'backbone-marionette-3', Ninja_Forms::$url . 'assets/js/lib/backbone.marionette3.min.js', array( 'jquery', 'backbone' ) );
+            wp_enqueue_script( 'nf-jbox', Ninja_Forms::$url . 'assets/js/lib/jBox.min.js', array( 'jquery' ) );
+            wp_enqueue_script( 'nf-moment', Ninja_Forms::$url . 'assets/js/lib/moment-with-locales.min.js', array( 'jquery' ) );
+            wp_enqueue_script( 'nf-dashboard', Ninja_Forms::$url . 'assets/js/min/dashboard.min.js', array( 'backbone-radio', 'backbone-marionette-3' ) );
+
+            wp_enqueue_style( 'nf-builder', Ninja_Forms::$url . 'assets/css/builder.css' );
+            wp_enqueue_style( 'nf-dashboard', Ninja_Forms::$url . 'assets/css/dashboard.min.css' );
+            wp_enqueue_style( 'nf-jbox', Ninja_Forms::$url . 'assets/css/jBox.css' );
+            wp_enqueue_style( 'nf-font-awesome', Ninja_Forms::$url . 'assets/css/font-awesome.min.css' );
+
+            Ninja_Forms::template( 'admin-menu-dashboard.html.php' );
         }
     }
 
@@ -93,7 +145,13 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
     {
         $template = sanitize_title( $_GET['form_id'] );
 
-        $form = Ninja_Forms::template( $template . '.nff', array(), TRUE );
+        $templates = Ninja_Forms::config( 'NewFormTemplates' );
+
+        if( isset( $templates[ $template ] ) && ! empty( $templates[ $template ][ 'form' ] ) ) {
+            $form = $templates[ $template ][ 'form' ];
+        } else {
+            $form = Ninja_Forms::template( $template . '.nff', array(), TRUE );
+        }
 
         if( ! $form ) die( 'Template not found' );
 
@@ -139,14 +197,13 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
         wp_enqueue_script( 'jquery-perfect-scrollbar', Ninja_Forms::$url . 'assets/js/lib/perfect-scrollbar.jquery.min.js', array( 'jquery' ) );
         wp_enqueue_script( 'jquery-hotkeys-new', Ninja_Forms::$url . 'assets/js/lib/jquery.hotkeys.min.js' );
         wp_enqueue_script( 'jBox', Ninja_Forms::$url . 'assets/js/lib/jBox.min.js' );
-        wp_enqueue_script( 'jquery-caret', Ninja_Forms::$url . 'assets/js/lib/jquery.caret.min.js' );
+        wp_enqueue_script( 'nf-jquery-caret', Ninja_Forms::$url . 'assets/js/lib/jquery.caret.min.js' );
         wp_enqueue_script( 'speakingurl', Ninja_Forms::$url . 'assets/js/lib/speakingurl.js' );
         wp_enqueue_script( 'jquery-slugify', Ninja_Forms::$url . 'assets/js/lib/slugify.min.js', array( 'jquery', 'speakingurl' ) );
         wp_enqueue_script( 'jquery-mobile-events', Ninja_Forms::$url . 'assets/js/lib/jquery.mobile-events.min.js', array( 'jquery' ) );
         wp_enqueue_script( 'jquery-ui-touch-punch', Ninja_Forms::$url . 'assets/js/lib/jquery.ui.touch-punch.min.js', array( 'jquery' ) );
         wp_enqueue_script( 'jquery-classy-wiggle', Ninja_Forms::$url . 'assets/js/lib/jquery.classywiggle.min.js', array( 'jquery' ) );
         wp_enqueue_script( 'moment-with-locale', Ninja_Forms::$url . 'assets/js/lib/moment-with-locales.min.js', array( 'jquery' ) );
-        wp_enqueue_script( 'modernizr', Ninja_Forms::$url . 'assets/js/lib/modernizr.min.js', array( 'jquery' ) );
         wp_enqueue_script( 'pikaday', Ninja_Forms::$url . 'assets/js/lib/pikaday.min.js', array( 'moment-with-locale' ) );
         wp_enqueue_script( 'pikaday-responsive', Ninja_Forms::$url . 'assets/js/lib/pikaday-responsive.min.js', array( 'pikaday', 'modernizr' ) );
 
@@ -168,7 +225,8 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
             'editFormText'      => __( 'Edit Form', 'ninja-forms' ),
             'mobile'            => ( wp_is_mobile() ) ? 1: 0,
             'currencySymbols'   => array_merge( array( '' => Ninja_Forms()->get_setting( 'currency_symbol' ) ), Ninja_Forms::config( 'CurrencySymbol' ) ),
-            'dateFormat'        => Ninja_Forms()->get_setting( 'date_format' )
+            'dateFormat'        => Ninja_Forms()->get_setting( 'date_format' ),
+            'formID'            => isset( $_GET[ 'form_id' ] ) ? absint( $_GET[ 'form_id' ] ) : 0
         ));
 
         do_action( 'nf_admin_enqueue_scripts' );
@@ -179,7 +237,12 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
         $form = Ninja_Forms()->form( $form_id )->get();
 
         if( ! $form->get_tmp_id() ) {
-            $fields = ($form_id) ? Ninja_Forms()->form($form_id)->get_fields() : array();
+
+            if( $form_cache = get_option( 'nf_form_' . $form_id, false ) ) {
+                $fields = $form_cache[ 'fields' ];
+            } else {
+                $fields = ($form_id) ? Ninja_Forms()->form($form_id)->get_fields() : array();
+            }
             $actions = ($form_id) ? Ninja_Forms()->form($form_id)->get_actions() : array();
         } else {
             $fields = array();
@@ -194,26 +257,66 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
         // die();
 
         if( ! empty( $fields ) ) {
+
+            // TODO: Replace unique field key checks with a refactored model/factory.
+//            $unique_field_keys = array();
+//            $form_cache = get_option( 'nf_form_' . $form_id, false );
+//            $cache_updated = false;
+
             foreach ($fields as $field) {
 
-                $type = $field->get_setting( 'type' );
+                $field_id = ( is_object( $field ) ) ? $field->get_id() : $field[ 'id' ];
 
-                $field_id = $field->get_id();
+                /*
+                 * Duplicate field check.
+                 * TODO: Replace unique field key checks with a refactored model/factory.
+                 */
+//                $field_key = $field->get_setting( 'key' );
+//                if( in_array( $field_key, $unique_field_keys ) || '' == $field_key ){
+//
+//                    // Delete the field.
+//                    Ninja_Forms()->request( 'delete-field' )->data( array( 'field_id' => $field_id ) )->dispatch();
+//
+//                    // Remove the field from cache.
+//                    if( $form_cache ) {
+//                        if( isset( $form_cache[ 'fields' ] ) ){
+//                            foreach( $form_cache[ 'fields' ] as $cached_field_key => $cached_field ){
+//                                if( ! isset( $cached_field[ 'id' ] ) ) continue;
+//                                if( $field_id != $cached_field[ 'id' ] ) continue;
+//
+//                                // Flag cache to update.
+//                                $cache_updated = true;
+//
+//                                unset( $form_cache[ 'fields' ][ $cached_field_key ] ); // Remove the field.
+//                            }
+//                        }
+//                    }
+//
+//                    continue; // Skip the duplicate field.
+//                }
+//                array_push( $unique_field_keys, $field_key ); // Log unique key.
+                /* END Duplicate field check. */
+
+                $type = ( is_object( $field ) ) ? $field->get_setting( 'type' ) : $field[ 'settings' ][ 'type' ];
 
                 if( ! isset( Ninja_Forms()->fields[ $type ] ) ){
                     $field = NF_Fields_Unknown::create( $field );
                 }
 
-                $settings = $field->get_settings();
+                $settings = ( is_object( $field ) ) ? $field->get_settings() : $field[ 'settings' ];
                 $settings[ 'id' ] =  $field_id;
 
 
-                foreach ($settings as $key => $setting) {
-                    if (is_numeric($setting)) $settings[$key] = floatval($setting);
-                }
+//                foreach ($settings as $key => $setting) {
+//                    if (is_numeric($setting)) $settings[$key] = floatval($setting);
+//                }
 
                 $fields_settings[] = $settings;
             }
+
+//            if( $cache_updated ) {
+//                update_option('nf_form_' . $form_id, $form_cache); // Update form cache without duplicate fields.
+//            }
         }
 
         $actions_settings = array();
@@ -239,7 +342,15 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
 
         $form_data = array();
         $form_data['id'] = $form_id;
-        $form_data['settings'] = $form->get_settings();
+
+        // Use form cache for form settings.
+        // TODO: Defer to refactor of factory/model.
+        if( isset( $form_cache[ 'settings' ] ) ) {
+            $form_data['settings'] = $form_cache[ 'settings' ];
+        } else {
+            $form_data['settings'] = $form->get_settings();
+        }
+
         $form_data['fields'] = $fields_settings;
         $form_data['actions'] = $actions_settings;
 
@@ -435,6 +546,14 @@ final class NF_Admin_Menus_Forms extends NF_Abstracts_Menu
         );
 
         foreach( Ninja_Forms()->merge_tags as $key => $group ){
+            /*
+             * If the merge tag group doesn't have a title, don't localise it.
+             * 
+             * This convention is used to allow merge tags to continue to function,
+             * even though they can't be added to new forms.
+             */
+            $title = $group->get_title();
+            if ( empty( $title ) ) continue;
 
             $merge_tags[ $key ] = array(
                 'id'    => $group->get_id(),
