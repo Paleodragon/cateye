@@ -21,7 +21,7 @@ get_header(); ?>
             <div class="social-btns">
 					<a href="https://twitter.com/CatEyeCoding" class="soc-icon tw"></a>
 					<a href="https://www.facebook.com/rebecca.w.foster.9" class="soc-icon fb"></a>
-					<a href="https://www.linkedin.com/in/rebecca-foster-85741169" class="soc-icon ln"></a>
+					<a href="https://www.linkedin.com/in/rebecca-w-foster" class="soc-icon ln"></a>
             </div>
 				<a href="<?php echo site_url('/portfolio/'); ?>" class="btn">View My Portfolio</a>
 			<?php endwhile; ?>
